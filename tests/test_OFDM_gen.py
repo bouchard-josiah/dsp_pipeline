@@ -17,7 +17,7 @@ def main():
 
     OFDM.msg_gen()
 
-    OFDM.analytic_sig_modulation(cfg)
+    OFDM.analytic_sig_BPSK_mod(cfg)
 
     OFDM.add_noise(cfg)
 
