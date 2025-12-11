@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsp_demo"
+version = "0.1.0"
+description = "A project that demonstrates my knowledge of DSP and Python"
+requires-python = ">=3.12"
+authors = [
+    { name = "Josiah Bouchard", email = "josiahbouchard86@yahoo.com" }
+]
+dependencies = [
+    "numpy",
+    "matplotlib"
+]
+
+# Where the Python packages live (src layout)
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-s"
