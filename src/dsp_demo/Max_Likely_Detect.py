@@ -11,14 +11,10 @@ class offset_detect:
     ):
         
 
-
-
     def Gen_M_seq_msg(self):
-
 
 
     def find_corr_peak(self):
 
-    
 
     
