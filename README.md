@@ -63,7 +63,7 @@ This repo reflects an active development state and not a finished product.
 
 ## Repository layout
 
-'''text
+```text
 .
 ├── notebooks
 ├── pyproject.toml
