@@ -1,6 +1,6 @@
 import numpy as np
 
-from dsp_demo.OFDM_Gen import OFDM_BPSK, configs
+from dsp_demo.OFDM_Gen import OFDM, configs
 
 import matplotlib
 
@@ -13,15 +13,17 @@ def main():
     
     cfg = configs()
 
-    OFDM = OFDM_BPSK(cfg)
+    OFDM_loc = OFDM(cfg)
 
-    OFDM.msg_gen()
+    OFDM_loc.msg_gen()
 
-    OFDM.analytic_sig_BPSK_mod(cfg)
+    #OFDM_loc.analytic_sig_BPSK_mod(cfg)
 
-    OFDM.add_noise(cfg)
+    OFDM_loc.IFFT_sig_BPSK_mod(cfg)
 
-    OFDM.gen_spectro(cfg)
+    OFDM_loc.add_noise(cfg)
+
+    OFDM_loc.gen_spectro(cfg)
 
 
 
