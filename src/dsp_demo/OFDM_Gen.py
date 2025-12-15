@@ -83,13 +83,13 @@ class configs:
 
     t_offset: float =  ((spec_len/4)*FFT_taps)/sample_rate  #seconds. This is when the transmission of the occupied symbols begins in seconds
 
-    sig_gain: float = 100 #Signal power (arbitrary linear unit)
+    sig_gain: float = 400 #Signal power (arbitrary linear unit)
 
     noise_gain: float = .9 #Noise floor (Also arbitrary)
 
     save_spec: bool = True
 
-    spec_location: string = str(Path.home()) + "/dsp_demo/results/spectrogram4.png"
+    spec_location: string = str(Path.home()) + "/dsp_demo/results/spectrogram5.png"
 
 
 
@@ -106,6 +106,8 @@ class OFDM:
         self.msg_bin = np.zeros(self.msg_len, dtype=bool) #This stores the binary message that will be modulated
 
         self.sample_rate = config.sample_rate
+
+        self.spectrogram = np.zeros([config.spec_len, config.FFT_taps],dtype = complex) #initalizing our matrix container that will be plotted as spectrogram (time vs. freq)
 
         if config.t_offset > (self.rx_sig_len/self.sample_rate): #covering for bad config
             self.t_offset = (self.rx_sig_len/2)/self.sample_rate
@@ -246,18 +248,20 @@ class OFDM:
 
     def gen_spectro(self, config: configs):
 
-        spectrogram = np.zeros([config.spec_len, config.FFT_taps],dtype = float) #initalizing our matrix container that will be plotted as spectrogram (time vs. freq)
-
         for x in range(0,config.spec_len):
 
             bin = np.fft.fft(self.signal_t[ (x*config.FFT_taps) : (((x+1)*config.FFT_taps))] ) #DFT taken over a set of samples with the length of our FFT Taps
             
-            spectrogram[x,0:config.FFT_taps] = np.abs(bin)#(np.fft.fftshift(bin))) #np.abs(bin) #magnitude of our complex frequency vector
+            self.spectrogram[x,0:config.FFT_taps] = bin #np.abs(bin)#(np.fft.fftshift(bin))) #np.abs(bin) #magnitude of our complex frequency vector
             #or y in range(0,config.FFT_taps):
 
+
+
+    def print_spectro(self, config: configs):
+        
         plt.figure(figsize=(20,12)) #figure size
         
-        plt.imshow(spectrogram,cmap='viridis') #setting our colormap
+        plt.imshow(np.abs(self.spectrogram),cmap='viridis') #setting our colormap
         
         if config.save_spec == True: #Can save the plot as a png or shown in a window. Configured both path and choice in configs
             
@@ -265,7 +269,7 @@ class OFDM:
         
         else:
             
-            plt.show()   
+            plt.show()
 
 
 
