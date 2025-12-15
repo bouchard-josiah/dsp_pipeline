@@ -90,11 +90,12 @@ class Energy_Detect:
                     self.detect_mask[t,f,0] = 255
 
 
-    def gen_spec_and_mask(self):
+    def gen_spec_and_mask(self, detect_mask: np.ndarray, spectrogram: np.ndarray):
 
-        spec_db = np.zeros([self.spec_len,self.FFT_taps], dtype = float)
 
-        spec_db = 10*np.log10(np.abs(self.spectrogram) + 1e-12) #add a small amount to avoid any 0's
+        spec_db = np.zeros([spectrogram.shape(0), spectrogram.shape(1)], dtype = float)
+
+        spec_db = 10*np.log10(np.abs(spectrogram) + 1e-12) #add a small amount to avoid any 0's
 
         spec_db -= spec_db.min() #normalizing values between 0 and 1 to map to integers for print
 
@@ -106,7 +107,7 @@ class Energy_Detect:
 
         spec_img_rgb = spec_img.convert("RGB") #this is so we can add the red overlay
 
-        mask_img = Image.fromarray(self.detect_mask, mode = 'RGB')
+        mask_img = Image.fromarray(detect_mask, mode = 'RGB')
 
         print_img = Image.blend(spec_img_rgb, mask_img, self.mask_transp)
 
