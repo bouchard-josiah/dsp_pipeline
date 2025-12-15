@@ -63,6 +63,7 @@ This repo reflects an active development state and not a finished product.
 
 ## Repository layout
 
+'''text
 .
 ├── notebooks
 ├── pyproject.toml
@@ -78,15 +79,6 @@ This repo reflects an active development state and not a finished product.
 │   │   ├── Max_Likely_Detect.py
 │   │   ├── OFDM_Gen.py
 │   │   └── __pycache__
-│   │       ├── Energy_Detection.cpython-312.pyc
-│   │       ├── __init__.cpython-312.pyc
-│   │       └── OFDM_Gen.cpython-312.pyc
-│   └── dsp_demo.egg-info
-│       ├── dependency_links.txt
-│       ├── PKG-INFO
-│       ├── requires.txt
-│       ├── SOURCES.txt
-│       └── top_level.txt
 ├── tests
 │   ├── __init__.py
 │   ├── __pycache__
