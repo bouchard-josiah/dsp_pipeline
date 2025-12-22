@@ -3,25 +3,27 @@ OFDM signal generation
 
 
 This module contains class objects to generate an OFDM signal. 
-It uses BPSK modulation and has functions to generate both a real, hermitian symmetric, signal
-and an analytic signal whose spectrogram does not show negative frequency components (SDR-like).
+It uses BPSK modulation and has functions to generate a real, hermitian symmetric, signal
+and an analytic signal whose spectrogram does not show negative frequency components (SDR-like). 
+There is functionality for both FFT-style modulation and discrete-time modulation for modulation of an analytic signal 
 Other functions allow for spectrogram generation, in window or saved as a PNG, and functionality for adding AWGN  
 
 
 Typical usage:
+
     cfg = configs()
 
-    OFDM = OFDM_BPSK(cfg)
+    OFDM_loc = OFDM(cfg)
 
-    OFDM.msg_gen()
+    OFDM_loc.msg_gen()
 
-    real_sig_BPSK_mod(cfg)
+    OFDM_loc.IFFT_sig_BPSK_mod(cfg)
 
-    analytic_sig_BPSK_mod(cfg)
+    OFDM_loc.add_noise(cfg)
 
-    OFDM.add_noise(cfg)
+    OFDM_loc.gen_spectro(cfg)
 
-    OFDM.gen_spectro(cfg)
+    OFDM_loc.print_spectro(cfg,spectrogram=OFDM_loc.spectrogram,spec_location=OFDM_loc.spec_location)
 
 
 Dependencies:
