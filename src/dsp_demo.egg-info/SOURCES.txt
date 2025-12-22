@@ -1,6 +1,9 @@
 README.md
 pyproject.toml
+src/dsp_demo/Channelizer.py
 src/dsp_demo/Energy_Detection.py
+src/dsp_demo/FIR_Filter.py
+src/dsp_demo/Max_Likely_Detect.py
 src/dsp_demo/OFDM_Gen.py
 src/dsp_demo/__init__.py
 src/dsp_demo.egg-info/PKG-INFO
@@ -8,5 +11,7 @@ src/dsp_demo.egg-info/SOURCES.txt
 src/dsp_demo.egg-info/dependency_links.txt
 src/dsp_demo.egg-info/requires.txt
 src/dsp_demo.egg-info/top_level.txt
+tests/test_FIR_filter.py
 tests/test_OFDM_gen.py
+tests/test_channelizer.py
 tests/test_energy_detect.py

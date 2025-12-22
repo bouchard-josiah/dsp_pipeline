@@ -25,6 +25,8 @@ def main():
 
     OFDM_loc.gen_spectro(cfg)
 
+    OFDM_loc.print_spectro(cfg,spectrogram=OFDM_loc.spectrogram,spec_location=OFDM_loc.spec_location)
+
 
 
 if __name__ == "__main__":

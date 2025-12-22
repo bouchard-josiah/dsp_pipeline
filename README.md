@@ -1,6 +1,6 @@
-# RF DSP Pipeline Prototypes (OFDM BPSK, Channelization, Detection)
+# DSP Analysis Pipeline Prototypes (OFDM BPSK, Channelization, Detection)
 
-This repository contains a focused set of RF digital signal processing prototypes implemented in Python. The code is organized as modular, testable building blocks that reflect how wideband RF data processing pipelines can be structured in practice: from waveform generation, through filtering and detection, toward channelized outputs of detected channels and maximum likelihood based synchronization.
+This repository contains a focused set of RF digital signal processing prototypes implemented in Python. The code is organized as modular and testable building blocks that reflect how wideband RF data processing pipelines can be structured in practice. The algorithms in this repo are focused on waveform generation, filtering, energy detection, channelized outputs of detected signals, and maximum likelihood based synchronization.
 
 ## Motivation
 
