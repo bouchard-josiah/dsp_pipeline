@@ -24,15 +24,15 @@ def main():
 
     OFDM_loc.gen_spectro(cfg)
 
-    OFDM_loc.print_spectro(cfg,spectrogram = OFDM_loc.spectrogram, spec_location=OFDM_loc.spec_location)
+    OFDM_loc.print_spectro(cfg,spectrogram = OFDM_loc.spectrogram , spec_location=OFDM_loc.spec_location)
 
-    filter_bw: float = float((OFDM_loc.msg_carriers*1.2)*cfg.scs)
+    filter_bw: float = float((OFDM_loc.msg_carriers*2.2)*cfg.scs)
 
     Filter_loc = Filters(spectrogram=OFDM_loc.spectrogram, FFT_taps=cfg.FFT_taps, freq_offset = OFDM_loc.f_offset, sample_rate = OFDM_loc.sample_rate, filter_bw = filter_bw)
 
     Filter_loc.overlap_add_filter()
 
-    spec_location: string = str(Path.home()) + "/dsp_demo/results/spectrogram6.png"
+    spec_location: string = str(Path.home()) + "/dsp_demo/results/Filtered_spectrogram.png"
 
     OFDM_loc.print_spectro(cfg,spectrogram = Filter_loc.filtered_sig_f, spec_location=spec_location)
 

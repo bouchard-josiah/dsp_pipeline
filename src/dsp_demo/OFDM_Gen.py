@@ -93,7 +93,7 @@ class OFDM:
 
         msg_carriers: int = 750,
 
-        tx_symbs: int = 500,
+        tx_symbs: int = 400,
 
         f_offset: float = 30e6,
 
@@ -101,7 +101,7 @@ class OFDM:
 
         save_spec: bool = True,
 
-        spec_location: string = str(Path.home()) + "/dsp_demo/results/spectrogram5.png"
+        spec_location: string = str(Path.home()) + "/dsp_demo/results/Unfiltered_spectrogram.png"
     
     ):
 
@@ -112,7 +112,7 @@ class OFDM:
 
         self.f_offset: float = f_offset  #-15e6#25e3 #center frequency offset from baseband to center of tx bw
 
-        self.t_offset: float =  t_offset #((cfg.spec_len/4)*cfg.FFT_taps)/cfg.sample_rate  #seconds. This is when the transmission of the occupied symbols begins in seconds
+        self.t_offset: float =  (cfg.FFT_taps*100)/cfg.sample_rate#t_offset #((cfg.spec_len/4)*cfg.FFT_taps)/cfg.sample_rate  #seconds. This is when the transmission of the occupied symbols begins in seconds
 
         self.sig_gain: float = 400 #Signal power (arbitrary linear unit)
         
@@ -232,24 +232,27 @@ class OFDM:
 
         start_bin_t = int((self.t_offset*self.sample_rate)/cfg.FFT_taps)
 
-        FFT_sig = np.zeros(cfg.FFT_taps, dtype = complex)
 
-        IFFT_sig_hold = np.zeros(cfg.FFT_taps, dtype = complex)
 
         #self.signal_t[0] = complex(1,1)
 
         for symb in range(0,self.tx_symbs):
+            
+            FFT_sig = np.zeros(cfg.FFT_taps, dtype = complex)
+
+            IFFT_sig_hold = np.zeros(cfg.FFT_taps, dtype = complex)
+            
             for t_bin in range(0,symbol_dur_bins):
 
                 for f_bin in range(start_bin_f, end_bin_f):
             
                     if self.msg_bin[((self.msg_carriers*symb)+f_bin)%self.msg_len] == True:
-                        FFT_sig[f_bin] = complex(self.sig_gain, 0)
+                        FFT_sig[f_bin] = complex(self.sig_gain, self.sig_gain)
                     else:
-                        FFT_sig[f_bin] = complex((-1*self.sig_gain),0)
+                        FFT_sig[f_bin] = complex((-1*self.sig_gain),(-1*self.sig_gain))
 
-                #FFT_sig = np.fft.fftshift(FFT_sig)
-
+                FFT_sig = np.fft.ifftshift(FFT_sig)
+               
                 IFFT_sig_hold = np.fft.ifft(FFT_sig)
 
                 start_time_samp = (start_bin_t + (symb*symbol_dur_bins)+t_bin)*cfg.FFT_taps #(t_offset_symb*symbol_dur_bins*cfg.FFT_taps)+(t_bin
@@ -273,8 +276,8 @@ class OFDM:
 
         for x in range(0,cfg.spec_len):
 
-            bin = np.fft.fft(self.signal_t[ (x*cfg.FFT_taps) : (((x+1)*cfg.FFT_taps))] ) #DFT taken over a set of samples with the length of our FFT Taps
-            
+            bin = np.fft.fft(self.signal_t[ (x*cfg.FFT_taps) : (((x+1)*cfg.FFT_taps))]) #DFT taken over a set of samples with the length of our FFT Taps
+            #bin = np.fft.fftshift(bin)
             self.spectrogram[x,0:cfg.FFT_taps] = bin #np.abs(bin)#(np.fft.fftshift(bin))) #np.abs(bin) #magnitude of our complex frequency vector
             #or y in range(0,cfg.FFT_taps):
 
@@ -283,8 +286,12 @@ class OFDM:
     def print_spectro(self, cfg: configs, spectrogram: np.ndarray, spec_location: string):
         
         plt.figure(figsize=(20,12)) #figure size
+        printer = np.zeros([spectrogram.shape[0],spectrogram.shape[1]], dtype = complex)
+
+        for n in range(0,spectrogram.shape[0]):
+            printer[n,:] = np.fft.fftshift(spectrogram[n,:])
         
-        plt.imshow(np.abs(spectrogram),cmap='viridis') #setting our colormap
+        plt.imshow(np.abs(printer),cmap='viridis') #setting our colormap
         
         if self.save_spec == True: #Can save the plot as a png or shown in a window. Configured both path and choice in configs
             

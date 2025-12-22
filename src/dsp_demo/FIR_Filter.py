@@ -31,9 +31,9 @@ class Filters:
 
         self.filtered_signal_t = np.zeros((self.spectrogram.size+FIR_taps - 1), dtype = complex)
 
-        self.FIR_filter_t = np.zeros(FIR_taps,dtype = float)
+        self.FIR_filter_t: np.ndarray
 
-        self.FIR_filter_f = np.zeros(FIR_taps,dtype = complex)
+        self.FIR_filter_f: np.ndarray 
 
         self.sample_rate: int = sample_rate
 
@@ -51,7 +51,7 @@ class Filters:
 
     def freq_shift(self): #input is a spectrogram in the freq domain
         for t in range(0,self.spectrogram.shape[0]):
-            self.shifted_sig_t[t:t+self.FFT_taps] = np.fft.ifft(self.spectrogram[t,:])
+            self.shifted_sig_t[t*self.FFT_taps:(t+1)*self.FFT_taps] = np.fft.ifft(self.spectrogram[t,:])
         
         for n in range(0,self.shifted_sig_t.size):
             expo = (((-1j)*2*np.pi*self.freq_offset*n)/self.sample_rate)
@@ -65,10 +65,14 @@ class Filters:
 
         B = .5/(self.sample_rate/self.filter_bw)
 
+        self.FIR_filter_t= np.zeros(self.filter_FFT_taps,dtype = float)
+
+        self.FIR_filter_f = np.zeros(self.filter_FFT_taps,dtype = complex)
+
         for n in range(0,self.FIR_taps):
             self.FIR_filter_t[n] = B*np.sinc(B*(n-((self.FIR_taps-1)/2)))
 
-        self.FIR_filter_t = self.FIR_filter_t * np.hanning(self.FIR_taps)
+        self.FIR_filter_t = self.FIR_filter_t * np.hanning(self.FIR_filter_t.size)
         
         self.FIR_filter_t[:] /= np.sum(self.FIR_filter_t)
 
@@ -91,15 +95,11 @@ class Filters:
 
         self.freq_shift()
 
-        self.gen_windowed_FIR_f()
-        
         self.find_fft_taps()
 
+        self.gen_windowed_FIR_f()
+        
         overlap = np.zeros(self.FIR_taps-1, dtype = complex)
-
-        padded_filter_f = np.zeros(self.filter_FFT_taps, dtype = complex)
-
-        padded_filter_f[0:self.FIR_taps] = self.FIR_filter_f[0:self.FIR_taps] 
 
         hold = np.zeros(self.filter_FFT_taps, dtype = complex)
 
@@ -107,7 +107,7 @@ class Filters:
 
             #hold[:] = np.fft.ifft(complex(np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps].real)), (np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps].imag))))
 
-            hold[:] = np.fft.ifft(np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps])*padded_filter_f)
+            hold[:] = np.fft.ifft(np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps])*self.FIR_filter_f)
 
             self.filtered_signal_t[(n*self.filter_FFT_taps):(n+1)*self.filter_FFT_taps] = hold
 
