@@ -18,36 +18,45 @@ The repository prioritizes reusable library code that can later be visualized vi
 - **OFDM BPSK signal generation**
   - Configurable OFDM parameters (FFT size, subcarriers, etc...)
   - Produces complex baseband IQ suitable for downstream DSP and detection work
+  - Currently implemented and working as intended in all test files except the in-progress tests/test_channelizer.py
 
 **Core DSP building blocks**
 - **FIR filtering**
   - Windowed-sinc style FIR filter design and application
   - Intended for both standalone filtering and channelization workflows
+  - FIR filtering functionality is currently fully implemented with intended results in tests/test_FIR_filter.py
 
 - **Energy detection**
   - Noise floor estimation and threshold-based detection
   - Designed to operate on FFT / spectrogram-style representations
+  - Currently working and implemented as intended in tests/test_energy_detect.py
 
 **Wideband processing**
 - **Channelizer**
   - Utilizes an energy detection mask to locate likely transmissions in a wideband received signal
   - Custom and configurable grouping algorithm for signal detection
   - Generates a spectrogram for a chosen sub-band of a detected signal
+  - Functionality currently in testing/debug stage
 
 ### In progress
+
+- **Channelizer**
+  - Source code functionality and test file are currently in debug/testing phase
 
 - **Maximum Likelihood (ML) detection**
   - Initial class and file scaffolding are in place
   - Intended to support likelihood-based detection / synchronization as a complement to energy detection
   - Intended to use 3GPP standard M-sequence sychronization techniques
-  - Dependency requirements, comments, and file headers need to be added for clarity and reproducabality
+
+- **Organization**
+  - Dependency requirements, comments, and file headers need to be added/modified for clarity and reproducabality
 
 ---
 
 ## Project Notes
 
 - Algorithms and source files are exercised through pytest-based test functions
-- Some test files (e.g., channelizer and FIR filtering tests) are written but have not yet been executed
+- Channelizer test file is written but has not yet been executed
 - Jupyter notebooks for visualization are **planned but not yet added**
 - The focus so far has been on:
   - Utilizing fundamentals to build intuitive and correct algorithms
