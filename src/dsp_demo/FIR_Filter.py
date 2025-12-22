@@ -81,8 +81,6 @@ class Filters:
 
     def find_fft_taps(self):
 
-        stop = False
-        
         n: int = 0
 
         while(self.FFT_taps > (2**n)):
