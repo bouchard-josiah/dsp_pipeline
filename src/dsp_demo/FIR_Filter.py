@@ -103,8 +103,6 @@ class Filters:
 
         for n in range(0,int(self.shifted_sig_t.size/self.filter_FFT_taps)):
 
-            #hold[:] = np.fft.ifft(complex(np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps].real)), (np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps].imag))))
-
             hold[:] = np.fft.ifft(np.fft.fft(self.shifted_sig_t[n*self.filter_FFT_taps:(n+1)*self.filter_FFT_taps])*self.FIR_filter_f)
 
             self.filtered_signal_t[(n*self.filter_FFT_taps):(n+1)*self.filter_FFT_taps] = hold
