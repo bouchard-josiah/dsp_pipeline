@@ -77,7 +77,7 @@ class configs:
 
     sample_rate: int = 100e6 #Subject to be reconfigured when using FFT based modulation to avoid resampling
 
-    noise_gain: float = .9 #Noise floor (Also arbitrary)
+    noise_pwr: float = .9 #Noise floor (Also arbitrary)
 
 
 
@@ -263,29 +263,47 @@ class OFDM:
 
   
 
-    def add_noise(self, cfg: configs): #adds AWGN to give our signal an imperfect SNR
+    def add_noise(self, cfg: configs, signal: np.ndarray | None = None): #adds AWGN to give our signal an imperfect SNR
 
-        for x in range(0,self.rx_sig_len):
+        if signal == None:
 
-            real_noise = np.random.normal(0, np.sqrt(cfg.noise_gain)/2)
-            self.signal_t.real[x] = self.signal_t.real[x] + real_noise
+            signal = self.signal_t
 
-            imag_noise = np.random.normal(0, np.sqrt(cfg.noise_gain)/2)
-            self.signal_t.imag[x] = self.signal_t.imag[x] + imag_noise
+        for x in range(0, len(signal)):
+
+            real_noise = np.random.normal(0, np.sqrt(cfg.noise_pwr)/2)
+            self.signal_t.real[x] = signal.real[x] + real_noise
+
+            imag_noise = np.random.normal(0, np.sqrt(cfg.noise_pwr)/2)
+            self.signal_t.imag[x] = signal.imag[x] + imag_noise
 
 
-    def gen_spectro(self, cfg: configs):
+    def gen_spectro(self, cfg: configs, signal: np.ndarray | None = None):
+        
+        if signal == None:
 
-        for x in range(0,cfg.spec_len):
+            signal = self.signal_t
 
-            bin = np.fft.fft(self.signal_t[ (x*cfg.FFT_taps) : (((x+1)*cfg.FFT_taps))]) #DFT taken over a set of samples with the length of our FFT Taps
+            spec_len = int(len(signal)/cfg.FFT_taps)
+
+        else:
+
+            spec_len = cfg.spec_len
+
+        for x in range(0,spec_len):
+
+            bin = np.fft.fft(signal[ (x*cfg.FFT_taps) : (((x+1)*cfg.FFT_taps))]) #DFT taken over a set of samples with the length of our FFT Taps
             #bin = np.fft.fftshift(bin)
             self.spectrogram[x,0:cfg.FFT_taps] = bin #np.abs(bin)#(np.fft.fftshift(bin))) #np.abs(bin) #magnitude of our complex frequency vector
             #or y in range(0,cfg.FFT_taps):
 
 
 
-    def print_spectro(self, cfg: configs, spectrogram: np.ndarray, spec_location: string):
+    def print_spectro(self, cfg: configs, spec_location: string, spectrogram: np.ndarray | None = None):
+
+        if spectrogram == None:
+            
+            spectrogram = self.spectrogram
         
         plt.figure(figsize=(20,12)) #figure size
         printer = np.zeros([spectrogram.shape[0],spectrogram.shape[1]], dtype = complex)
