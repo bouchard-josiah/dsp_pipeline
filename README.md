@@ -53,6 +53,11 @@ https://colab.research.google.com/github/bouchard-josiah/dsp_pipeline/blob/main/
 - **Channelizer**
   - Source code functionality and test file are currently in debug/testing phase
 
+- **Jupyter Notebook Demo**
+  - Setup and signal generation are complete
+  - Next step is to generate and print the spectrogram image of the original signal inside the notebook
+  - After, a signal will be chosen, filtered, centered, and a spectrogram image of the result will be printed in the notebook
+
 - **Maximum Likelihood (ML) detection**
   - Initial class and file scaffolding are in place
   - Intended to support likelihood-based detection / synchronization as a complement to energy detection
