@@ -39,7 +39,7 @@ https://colab.research.google.com/github/bouchard-josiah/dsp_pipeline/blob/main/
 - **Energy detection**
   - Noise floor estimation and threshold-based detection
   - Designed to operate on FFT / spectrogram-style representations
-  - Currently working and implemented as intended in tests/test_energy_detect.py
+  - Currently working as intended in tests/test_energy_detect.py
 
 **Wideband processing**
 - **Channelizer**
