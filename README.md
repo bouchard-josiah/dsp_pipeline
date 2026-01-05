@@ -10,6 +10,8 @@ The repository prioritizes reusable library code that can later be visualized vi
 
 ---
 ## Run The Demo
+***This demo is currently in progress***
+
 Here is a link to Google Colab that will open the most recent version of the "Signal Of Interest Pipeline Demonstration."
 
 This notebook demonstrates how some of the source code functionality can be used together to make an end-to-end signal analysis pipeline from signal generation to filtering and visualization.
