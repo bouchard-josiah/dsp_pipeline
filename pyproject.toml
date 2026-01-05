@@ -3,16 +3,17 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dsp_demo"
+name = "dsp_pipeline"
 version = "0.1.0"
-description = "A project that demonstrates my knowledge of DSP and Python"
+description = "This project is meant to explore DSP workflows with modern Python programming techniques and how the fundamentals of digital communications can be applied to build practical, modular, and reusable algorithms"
 requires-python = ">=3.12"
 authors = [
     { name = "Josiah Bouchard", email = "josiahbouchard86@yahoo.com" }
 ]
 dependencies = [
     "numpy",
-    "matplotlib"
+    "matplotlib",
+    "Pillow"
 ]
 
 # Where the Python packages live (src layout)
