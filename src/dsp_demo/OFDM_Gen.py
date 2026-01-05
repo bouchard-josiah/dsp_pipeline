@@ -23,7 +23,7 @@ Typical usage:
 
     OFDM_loc.gen_spectro(cfg)
 
-    OFDM_loc.print_spectro(cfg,spectrogram=OFDM_loc.spectrogram,spec_location=OFDM_loc.spec_location)
+    OFDM_loc.print_spectro(cfg,spec_location=OFDM_loc.spec_location)
 
 
 Dependencies:
@@ -49,7 +49,7 @@ from dataclasses import dataclass
 
 import random
 
-import string
+#import string
 
 from pathlib import Path
 
@@ -101,7 +101,7 @@ class OFDM:
 
         save_spec: bool = True,
 
-        spec_location: string = str(Path.home()) + "/dsp_demo/results/Unfiltered_spectrogram.png",
+        spec_location: str = str(Path.home()) + "/dsp_demo/results/Unfiltered_spectrogram.png",
 
         sig_gain: float = 400 #Signal power (arbitrary linear unit)
     
@@ -132,7 +132,7 @@ class OFDM:
 
         self.save_spec: bool = save_spec
 
-        self.spec_location: string = spec_location
+        self.spec_location: str = spec_location
 
         if self.t_offset > (self.rx_sig_len/self.sample_rate): #covering for bad config
             self.t_offset = (self.rx_sig_len/2)/self.sample_rate
@@ -299,11 +299,15 @@ class OFDM:
 
 
 
-    def print_spectro(self, cfg: configs, spec_location: string, spectrogram: np.ndarray | None = None):
+    def print_spectro(self, cfg: configs, spec_location: str | None = None, spectrogram: np.ndarray | None = None):
 
         if spectrogram == None:
-            
+
             spectrogram = self.spectrogram
+
+        if spec_location == None:
+
+            spec_location = self.spec_location
         
         plt.figure(figsize=(20,12)) #figure size
         printer = np.zeros([spectrogram.shape[0],spectrogram.shape[1]], dtype = complex)

@@ -4,7 +4,7 @@ from dsp_demo.OFDM_Gen import OFDM, configs
 
 from dsp_demo.FIR_Filter import Filters
 
-import string
+#import string
 
 from pathlib import Path
 
@@ -32,7 +32,7 @@ def main():
 
     Filter_loc.overlap_add_filter()
 
-    spec_location: string = str(Path.home()) + "/dsp_demo/results/Filtered_spectrogram.png"
+    spec_location: str = str(Path.home()) + "/dsp_demo/results/Filtered_spectrogram.png"
 
     OFDM_loc.print_spectro(cfg,spectrogram = Filter_loc.filtered_sig_f, spec_location=spec_location)
 
