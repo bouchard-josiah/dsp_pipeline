@@ -3,9 +3,12 @@ OFDM signal generation
 
 
 This module contains class objects to generate an OFDM signal. 
+
 It uses BPSK modulation and has functions to generate a real, hermitian symmetric, signal
-and an analytic signal whose spectrogram does not show negative frequency components (SDR-like). 
-There is functionality for both FFT-style modulation and discrete-time modulation for modulation of an analytic signal 
+and an analytic signal whose spectrogram does not show mirrored negative frequency components (SDR-like). 
+
+There is functionality for both FFT-style modulation and discrete-time modulation for modulation of an analytic signal.
+
 Other functions allow for spectrogram generation, in window or saved as a PNG, and functionality for adding AWGN  
 
 
