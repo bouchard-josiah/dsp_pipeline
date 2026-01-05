@@ -114,7 +114,7 @@ class OFDM:
 
         self.f_offset: float = f_offset  #-15e6#25e3 #center frequency offset from baseband to center of tx bw
 
-        self.t_offset: float =  (cfg.FFT_taps*100)/cfg.sample_rate#t_offset #((cfg.spec_len/4)*cfg.FFT_taps)/cfg.sample_rate  #seconds. This is when the transmission of the occupied symbols begins in seconds
+        self.t_offset: float =  (cfg.FFT_taps*t_offset_bins)/cfg.sample_rate#t_offset #((cfg.spec_len/4)*cfg.FFT_taps)/cfg.sample_rate  #seconds. This is when the transmission of the occupied symbols begins in seconds
 
         self.sig_gain: float = sig_gain #Signal power (arbitrary linear unit)
         
