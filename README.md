@@ -15,7 +15,7 @@ Here is a link to Google Colab that will open the most recent version of the "Si
 This notebook demonstrates how some of the source code functionality can be used together to make an end-to-end signal analysis pipeline from signal generation to filtering and visualization.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](
-https://colab.research.google.com/github/bouchard-josiah/dsp_pipeline/blob/main/notebooks/demo.ipynb
+https://colab.research.google.com/github/bouchard-josiah/dsp_pipeline/blob/main/notebooks/Signal_Of_Interest_demo.ipynb
 )
 
 ## Current scope
