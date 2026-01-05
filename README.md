@@ -64,7 +64,7 @@ https://colab.research.google.com/github/bouchard-josiah/dsp_pipeline/blob/main/
   - Intended to use 3GPP standard M-sequence sychronization techniques
 
 - **Organization**
-  - Dependency requirements, comments, and file headers need to be added/modified for clarity and reproducabality
+  - Comments and file headers need to be added/modified for clarity and reproducabality
 
 ---
 
