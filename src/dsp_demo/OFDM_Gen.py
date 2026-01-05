@@ -23,7 +23,7 @@ Typical usage:
 
     OFDM_loc.gen_spectro(cfg)
 
-    OFDM_loc.print_spectro(cfg,spec_location=OFDM_loc.spec_location)
+    OFDM_loc.print_spectro(cfg)
 
 
 Dependencies:
@@ -32,8 +32,6 @@ Dependencies:
     -dataclasses.dataclass
 
     -random (for message generation and AWGN)
-
-    -string (for plotting)
 
     -pathlib.Path (for plotting)
 
