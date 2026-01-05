@@ -75,7 +75,7 @@ class configs:
 
     OFDM_symb_len: float = 1/scs #Symbol length in seconds which is directly related to subcarrier spacing
 
-    sample_rate: int = 50e6 #Subject to be reconfigured when using FFT based modulation to avoid resampling
+    sample_rate: int = 100e6 #Subject to be reconfigured when using FFT based modulation to avoid resampling
 
     noise_gain: float = .9 #Noise floor (Also arbitrary)
 
@@ -95,13 +95,15 @@ class OFDM:
 
         tx_symbs: int = 400,
 
-        f_offset: float = 30e6,
+        f_offset: float = 25e6,
 
-        t_offset: float =  0,
+        t_offset_bins: float =  0, #Time bins from receive start to start of generated signal
 
         save_spec: bool = True,
 
-        spec_location: string = str(Path.home()) + "/dsp_demo/results/Unfiltered_spectrogram.png"
+        spec_location: string = str(Path.home()) + "/dsp_demo/results/Unfiltered_spectrogram.png",
+
+        sig_gain: float = 400 #Signal power (arbitrary linear unit)
     
     ):
 
@@ -114,7 +116,7 @@ class OFDM:
 
         self.t_offset: float =  (cfg.FFT_taps*100)/cfg.sample_rate#t_offset #((cfg.spec_len/4)*cfg.FFT_taps)/cfg.sample_rate  #seconds. This is when the transmission of the occupied symbols begins in seconds
 
-        self.sig_gain: float = 400 #Signal power (arbitrary linear unit)
+        self.sig_gain: float = sig_gain #Signal power (arbitrary linear unit)
         
         self.rx_sig_len = cfg.FFT_taps * cfg.spec_len #received signal length in samples
         

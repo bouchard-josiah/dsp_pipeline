@@ -9,6 +9,12 @@ This project is meant to explore DSP workflows with modern Python programming te
 The repository prioritizes reusable library code that can later be visualized via notebooks
 
 ---
+## Run The Demo
+Here is a link to Google Colab that will open the most recent version of the "Signal Of Interest Pipeline Demonstration."
+
+This notebook demonstrates how some of the source code functionality can be used together to make an end-to-end signal analysis pipeline from signal generation to filtering and visualization.
+
+
 
 ## Current scope
 
@@ -57,7 +63,7 @@ The repository prioritizes reusable library code that can later be visualized vi
 
 - Algorithms and source files are exercised through pytest-based test functions
 - Channelizer test file is written but has not yet been executed
-- Jupyter notebooks for visualization are **planned but not yet added**
+- The first Jupyter notebook example is **added and in progress**
 - The focus so far has been on:
   - Utilizing fundamentals to build intuitive and correct algorithms
   - Keeping functionality modular and lightweight
@@ -75,6 +81,7 @@ This repo reflects an active development state and not a finished product.
 ```text
 .
 ├── notebooks
+│   ├── Signal_Of_Interest_demo.ipynb
 ├── pyproject.toml
 ├── README.md
 ├── results  
